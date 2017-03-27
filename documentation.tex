@@ -1,0 +1,249 @@
+\documentclass[a4paper,11pt]{amsart}
+\pdfoutput=1
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage[small,balance]{diagrams}
+\usepackage{enumitem}
+\usepackage{xargs}
+\usepackage{ifthen}
+\usepackage{url}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{caption}
+
+\usepackage{listings}
+\lstset{
+basicstyle=\footnotesize,
+columns=fullflexible,
+showstringspaces=false,
+}
+
+\lstdefinelanguage{GAP}{%
+  morekeywords={%
+    Assert,Info,IsBound,QUIT,%
+    TryNextMethod,Unbind,and,break,%
+    continue,do,elif,%
+    else,end,false,fi,for,%
+    function,if,in,local,%
+    mod,not,od,or,%
+    quit,rec,repeat,return,%
+    then,true,until,while%
+  },%
+  sensitive,%
+  morecomment=[l]\#,%
+  morestring=[b]",%
+  morestring=[b]',%
+}[keywords,comments,strings] % for arXiv which is using TexLive 2011
+
+
+% Comments
+\usepackage{comment}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+
+% Layout
+\usepackage[left=2.8cm,right=2.8cm,top=2.8cm,bottom=3.8cm]{geometry}
+\usepackage{empheq}
+\numberwithin{equation}{section}
+
+% Theorems
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{introtheorem}{Theorem}
+\renewcommand*{\theintrotheorem}{\Alph{introtheorem}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{question}{Question}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+% Spaces
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+
+
+% Operators and Relations
+\newcommand{\defeq}{\mathrel{\mathop{:}}=}
+\newcommand{\eqdef}{=\mathrel{\mathop{:}}}
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\lk}{\operatorname{lk}}
+\newcommand{\st}{\operatorname{st}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\CAT}{\operatorname{CAT}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\im}{\operatorname{im}}
+
+\newcommand{\Ob}{\operatorname{Ob}}
+\newcommand{\Aff}{\operatorname{AGL}}
+
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\frakm}{\mathfrak{m}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\PGL}{\operatorname{PGL}}
+\newcommand{\PG}{\operatorname{PG}}
+\newcommand{\PGaL}{\operatorname{P\Gamma{}L}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\PSL}{\operatorname{PSL}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Out}{\operatorname{Out}}
+\newcommand{\Inn}{\operatorname{Inn}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\hjelm}{\mathcal{H}}
+\newcommand{\hpts}{\mathcal{P}}
+\newcommand{\hlns}{\mathcal{L}}
+\newcommand{\typ}{\operatorname{typ}}
+
+\newcommand{\mmod}{\mathrel{\,\operatorname{mod}\,}}
+
+\newcommand{\Groupoid}{\mathcal{G}}
+\newcommand{\SingTrip}{\mathcal{ST}}
+\newcommand{\Inner}{\mathcal{IST}}
+\newcommand{\DiffMat}{\mathcal{DM}}
+\newcommand{\DiffMatSet}{\mathrm{DM}}
+\newcommand{\DiffMatBSet}{\mathrm{DM}_0}
+\newcommand{\Normal}{\mathcal{N}}
+
+\newcommand{\ProjPla}{\Pi}
+\newcommand{\inc}{\mathrel{I}}
+\newcommand{\dbar}[1]{\bar{\bar{#1}}}
+
+\newcommand{\sw}[1]{\textcolor{OliveGreen}{#1}}
+
+\numberwithin{equation}{section}
+
+\newcommand{\chr}{\operatorname{char}}
+\newcommand{\llb}{(\mkern-2mu(}
+\newcommand{\rrb}{)\mkern-2mu)}
+\newcommand{\lls}{[\mkern-2mu[}
+\newcommand{\rrs}{]\mkern-2mu]}
+\newcommand{\alg}{\mathcal{A}}
+\newcommand{\lseries}[1]{\llb #1 \rrb}
+\newcommand{\pseries}[1]{\lls #1\rrs}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\act}{\curvearrowright}
+\newcommandx{\stab}[3][2={},3={}]{\ifthenelse{\equal{#2#3}{}}%
+  {{\ifthenelse{\equal{#1}{}}{P}{P_{#1}}}}%
+  {{{\ifthenelse{\equal{#1}{}}{P^{#3\ifthenelse{\equal{#2}{}}{}{(#2)}}}{P_{#1}^{#3\ifthenelse{\equal{#2}{}}{}{(#2)}}}}}}}
+
+
+\newenvironment{smallarray}[1]
+ {\null\,\vcenter\bgroup\scriptsize
+  \renewcommand{\arraystretch}{0.7}%
+  \arraycolsep=.13885em
+  \hbox\bgroup$\array{@{}#1@{}}}
+ {\endarray$\egroup\egroup\,\null}
+
+
+% a, b: exponents in edge paths
+% c, d: chambers
+% e, f: rows of difference matrices
+% g, h: group elements
+% i, j, k: indices
+% \ell, m, n: index bounds
+% p, q: prime, prime power
+% r: radius
+% s: conjugates of sigmas
+% v, w: vertices
+% x, y, z: 
+
+% D: difference set
+% E: difference matrix
+% G, H: group, subgroup
+% K, L: fields
+% S: places
+% X, Y: buildings
+
+% 
+% --------------------------------------------------------------------
+%
+
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+\title[Software for the article ``On panel-regular $\tilde{A}_2$ lattices'']{Software for the article\\``On panel-regular $\tilde{A}_2$ lattices''}
+\date{}
+
+\keywords{Lattices, buildings, difference sets, Singer groups}
+
+\author[S.~Witzel]{Stefan Witzel}
+\address{Department of Mathematics, Bielefeld University, PO Box 100131, 33501 Bielefeld, Germany}
+\thanks{The research for this article is part of the DFG project WI 4079/2. It was also supported by the SFB~701.}
+\email{switzel@math.uni-bielefeld.de}
+
+\maketitle
+
+In this file we discuss the programs used to carry out the computer experiments in \cite{witzel}. This does not include the implementation of the method described in \cite[Section~8]{witzel} for finding embeddings into $\PGL_3(K)$. This method was implemented in Sage~\cite{sage} which in turn used polynomial arithmetic from Singular~\cite{singular}. The main reason we will not discuss our implementation here is that it is not part of any proof: the resulting embeddings at the end of \cite[Section~8]{witzel} can be easily verified without analyzing the code that found them. A more practical reason is that significant parts of the code were concerned with working around implementation issues of Sage, and therefore would not be particularly instructive mathematically.
+
+There are three pieces of code that we will describe: the code in \emph{difference\textunderscore matrices.py} determines a set of representatives of difference matrices up to equivalence for a given parameter $q$. The code in \emph{hjelmslev.py} computes the Hjelmslev planes up to level $3$ around any vertex for a given difference matrix. It also checks, whether the Hjelmslev plane is Moufang and in how many ways the projections split. The files \emph{hjelmslev.gap} and \emph{stabilizers.gap} contain code for the stabilizer computations in \cite[Section~10]{witzel}.
+
+Much of the code is fairly simple-minded, for one thing because it turned out to not be very time-critical\footnote{All computations were performed on an Intel Xeon X5675 processor. Most of the Python computations finished within a few minutes. Some of the stabilizer computations were more time consuming. The computations for $q = 5$ took several (single-thread computer) months in total because of the large number of cases. The longest individual computations were the verifications that $\abs{\stab{1}[3][2]} = 1$ for the vertices of type $0$ and $1$ in $X_{4,8}$. This involved verifying that $16$ automorphisms on level $2$ do not lift to level $3$ and took about six weeks in each case.}, but also because this makes it easier to read. For example, the method \verb|Hjelmslev.init()| in \emph{hjelmslev.py} which computes the Hjelmslev planes is a straightforward translation of \cite[Corollary~9.7]{witzel}. We chose to use Python~\cite{python} for it expressiveness and coding speed. The stabilizer computations are implemented in GAP~\cite{gap} using the library GRAPE~\cite{grape} which in turn depends heavily on the library nauty~\cite{nauty}. Apart from GRAPE only basic GAP features are used.
+
+All the code will be made available in the GitHub repository \cite{github_sl}. Here we only include the mathematical core pieces.
+
+The file \emph{difference\textunderscore matrices.py} consists mostly of a class \verb|DiffSetFactory| whose only purpose is to store the variables $p$, $\eta$, $\delta$, $\Z/\delta\Z$, $(\Z/\delta\Z)^\times$, $\Aff_1(\Z/\delta\Z)$ derived from $q$ rather than having to compute them over and over again (this would not be a performance problem but would clutter the code). Difference sets are generally stored as \verb|tuples| (which are sorted if they should be regarded as unordered difference sets). Difference matrices are stored as sets (hashable \verb|frozensets|) of rows (=\verb|tuples|). Thus the equivalence operation of permuting rows is already automatically built into their representation. Moreover the row operation of subtracting one row from all rows is also an affine transformation on columns. Therefore only column permutations and affine column transformations need to dealt with explicitly.
+
+The first main method is \verb|DiffSetFactory.difference_matrices()| which generates all difference matrices whose columns setwise equal a given difference set. The implementation is trivial: the first column is taken to be the ordered difference set, the other two columns run through all possible permutations of the ordered difference set. The second main method is \verb|DiffSetFactory.orbit_diff_mat()| which computes all difference matrices in the $S_3 \ltimes \Aff_1(\Z/\delta\Z)^3$ orbit that have the same difference sets as columns. For this purpose it first determines all elements of $\Aff_1(\Z/\delta\Z)$ that preserve the columns setwise (using \verb|DiffSetFactory.aut_diff_set()|) and then applies all combinations of these and all elements of $S_3$. The procedure to obtain all equivalence classes is then simple as well:  the function \verb|eq_classes| picks a representative from the set of all difference matrices, computes its orbit, removes the orbit from the set and repeats until no more difference matrices are left. An effort is then made to pick a nice representative from each class (not shown).
+
+\lstinputlisting[language=Python, caption=difference\textunderscore matrices.py]{difference_matrices.py}
+
+The core of the file \emph{hjelmslev.py} is the class Hjelmslev which represents a tower of Hjelmslev planes up to a certain level (at most $3$). Each point is represented by a tuple  $(b^0, \ldots, b^{\ell-1})$ and each line of the incidence geometry is represented by a tuple $(a^0, \ldots, a^{\ell-1})$ of exponents to the respective Singer cycles as in \cite[Corollary~9.7]{witzel}. These are stored in \verb|Hjelmslev.points| and \verb|Hjelmslev.lines|. For examples \verb|Hjelmslev.points[2]| contains the points of the plane of level $2$ while \verb|Hjelmslev.lines[3]| contains the lines of level $3$. Note that whether a tuple is a point or a line is not visible intrinsically, it depends on where it is stored. The variables \verb|Hjelmslev.points[i]| and \verb|Hjelmslev.lines[i]| are not just sets but store for each point or line its \verb|Adjacencies|, namely the lines or points that are actually adjacent to it, but also the unique point or line that it projects to at a lower level, as well as the sets of points or lines that project to it at higher levels. The method \verb|Hjelmslev.init()| follows closely \cite[Corollary~9.7]{witzel}. It first generates all flags (incident point-line pairs) up to the desired level and then translates these into the mentioned incidence structures.
+
+The method \verb|Hjelmslev.splits()| computes all splits of a projection $\hjelm^k \to \hjelm^\ell$. In order to do so it takes a set of points $P \subseteq \hpts^\ell$ that span $\hjelm^\ell$, iterates through all possible lifts $(\tilde{p})_{p \in P}$ in $\hjelm^k$ and checks whether the assignment $p \mapsto \tilde{p}$ extends to a well-defined map $\hjelm^\ell \to \hjelm^k$. 
+To compute the complete map determined by the partial assignment \verb|Hjelmslev.span()| is called with the optional argument \verb|image_level| that causes it to not only compute the span of the domain but also extend the map in the process. Finding a set of spanning points is implemented in \verb|Hjelmslev.init_spanning_points| only for $\ell = 1$. If $q$ is prime, it suffices to take four points in general position. In general the strategy is inductively take a point that is not collinear to any previously chosen points as long as possible, and to take a point that is not in the span of the previously chosen points afterwards.
+
+The implementation of the method \verb|Hjelmslev.moufang()| is distributed over the methods preceding it. The method \verb|Hjelmslev.enough_roots()| produces a list of all roots of some apartment, specified as a sequence of a line that lies in the boundary of the root, and a point and a line that lie in the interior. The method \verb|Hjelmslev.check_root_group()| checks whether the root group is transitive on the points adjacent to the boundary line that project to different points than the interior point. For that purpose the method \verb|Hjelmslev.partial_root_group_elts()| specifies the partial maps that are defining for a root group element and \verb|check_root_group()| checks whether they extend.
+
+Finally the method \verb|Hjelmslev.gap_graph()| dumps the plane of the highest level to GAP code that is then further processed through the GAP files below.
+
+\lstinputlisting[language=Python, caption=hjelmslev.py]{hjelmslev.py}
+
+The functions in \emph{hjelmslev.gap} can be used to turn the output of \verb|Hjelmslev.gap_graph()| into colored incidence graphs compatible with GRAPE. Since the Singer group acts on every plane, the lists \verb|vertices| and \verb|edges| passed to the gap code actually only list orbit representatives and the GRAPE graph is then defined to be their orbit under the action \verb|OnHjelmslev()|. The function \verb|HjelmslevPlanes()| produces these graphs for each level (which are of course easily recovered from the one of highest level). The function \verb|HjelmslevColor()| equips them with a vertex coloring, which on level $1$ is just by type (point/line) and on higher levels is by projection image one level lower. The alternative function \verb|HjelmslevTypeColor()| colors vertices by type on all levels. On a technical level the coloring is performed by \verb|Color()|. Every point or line is represented by a list of the form $["p", b^0, \ldots, b^\ell]$ or $["\ell", a^0, \ldots, a^\ell]$ and the color is determined by truncating the name accordingly.
+
+The most basic use of these colored graphs is the function \verb|AutKernel()|. It just computes the symmetries of the graph that preserve the coloring. Depending on which of the two colorings is chosen, this means computing the symmetries of $\hjelm^k$ whose projection to $\hjelm^{k-1}$ is trivial, or computing the symmetries of $\hjelm^k$ that preserve type.
+
+The task of the functions \texttt{Lift\ldots()} is to lift increasingly general groups of symmetries from $\hjelm^k$ to $\hjelm^{k+1}$. The most general one is \verb|LiftSubgroupOfAbelianGroup()| which takes an abelian subgroup of $\Aut(\hjelm^k)$ and determines the largest subgroup that lifts to $\Aut(\hjelm^{k+1})$. It returns this subgroup as well as a lift.
+
+It builds on \verb|LiftSubgroupOfCyclicGroup()| which in turn uses \verb|LiftAut()|. In \verb|LiftAut()| the automorphism on level $k$ induces a prescribed permutation of colors on level $k+1$. The automorphism is then lifted (or not) by using the GRAPE function \verb|GraphIsomorphism()| to find an automorphism in $\Aut(\hjelm^{k+1})$ that induces the prescribed change of color. Everything after that is straightforward. Given an automorphism $\alpha \in \Aut(\hjelm^k)$ in order to find the largest subgroup of $\gen{\alpha}$ of order $o = \prod p^{e_p}$ that lifts to $\Aut(\hjelm^{k+1})$, the function \verb|LiftSubgroupOfCyclicGroup()| successively tries to lift $\alpha^{o/p^i}$ for $1 \le i \le e_p$ and then pieces together the morphisms that lift (a binary search would be more efficient, but the exponents $e_p$ that occur in practice are not large enough to justify the effort). The function \verb|LiftSubgroupOfAbelianGroup()| just applies \verb|LiftSubgroupOfCyclicGroup()| generator-by-generator.
+
+Finally the function \verb|DecodePermutation()| is just the GAP counterpart of the Python function \verb|encode_permutation()| that is used to hand a permutation (concretely the Frobenius morphism) from \emph{hjelmslev.py} to \emph{hjelmslev.gap} (this is error-prone because list indices start at $0$ in Python and at $1$ in GAP).
+
+\lstinputlisting[language=GAP, caption=hjelmslev.gap]{hjelmslev.gap}
+
+The code in \emph{stabilizers.gap} uses the functions from \emph{hjelmslev.gap} to compute $\stab{1}[2]{}$ and $N_{\stab{}[1][2]}(\gen{\sigma})/\gen{\sigma}$. If the Hjelmslev planes are passed up to level $3$ then it also computes $\stab{1}{2}{3}$. If an optional variable \verb|everything| is set then $\stab{1}[][3]$ and $N_{\stab{}[][2]}(\gen{\sigma})/\gen{\sigma}$ are computed as well.
+
+\lstinputlisting[language=GAP, caption=stabilizers.gap]{stabilizers.gap}
+
+
+\bibliographystyle{amsalpha}
+\bibliography{singer_lattice.bib}
+
+\end{document}

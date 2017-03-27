@@ -1,0 +1,13 @@
+*.aux
+*.bbl
+*.mps
+*.log
+*.blg
+*.mpx
+*.out
+*.synctex.gz
+*.sage.py
+*~
+lattices_*.tex
+buildings_*.tex
+singer_lattice.pdf
